@@ -1,0 +1,14 @@
+# 单节点服务发现中心
+spring:
+  application:
+    name: poc-discovery
+server:
+  port: 8888
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetch-registry: false # 是否从eureka server 获取注册信息
+    register-with-eureka: false # 将自己注册到eureka
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
