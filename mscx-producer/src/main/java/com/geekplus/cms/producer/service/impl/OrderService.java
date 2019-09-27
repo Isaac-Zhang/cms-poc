@@ -40,9 +40,11 @@ public class OrderService implements IOrderService {
         //查重业务...
 
         //添加
-        OrderEntity orderEntity = orderRepository.save(
+        OrderEntity orderEntity = orderRepository.saveAndFlush(
             OrderEntity.builder()
                 .orderCode(orderDTO.getOrderCode())
+                .createTime(orderDTO.getCreateTime())
+                .updateTime(orderDTO.getUpdateTime())
                 .build());
         log.info("current order is : {}", orderEntity);
         return OrderDTO.builder()
@@ -67,6 +69,8 @@ public class OrderService implements IOrderService {
                         .updateTime(orderEntity.getUpdateTime())
                         .build());
             }
+
+            return orderDTOList;
         }
         return Collections.EMPTY_LIST;
     }

@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "order")
+@Table(name = "poc_order")
 public class OrderEntity {
 
     @Id
@@ -52,8 +52,8 @@ public class OrderEntity {
      * @param orderCode 订单编码
      */
     public OrderEntity(String orderCode) {
-        this.orderCode = orderCode;
-        this.createTime =(new Date()).getTime();
-        this.updateTime = this.createTime;
+//        this.orderCode = orderCode;
+//        this.createTime =(new Date()).getTime();
+//        this.updateTime = this.createTime;
     }
 }
