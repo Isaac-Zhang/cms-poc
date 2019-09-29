@@ -8,8 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-/***
+@FeignClient(
+    name = "mscx-producer",
+    fallbackFactory = OrderFeignClientFallBackFactory.class
+)
+@RequestMapping("/order-service/order")
+
+/*
  * 创建请求producer-service 的feignClient
  *
  * @Company GeekPlus
@@ -17,18 +24,14 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @Author <a href="mailto:zhangpan@geekplus.com.cn">Isaac.Zhang | 若初</a>
  * @Date 2019/9/29
  */
-@FeignClient(
-    name = "mscx-producer",
-    fallbackFactory = OrderFeignClientFallBackFactory.class
-)
 public interface IOrderFeignClient {
 
-    @PostMapping("/order/create")
+    @PostMapping("/create")
     OrderDTO createOrder(@RequestBody OrderDTO orderDTO) throws Exception;
 
-    @GetMapping("/order/get/{code}")
+    @GetMapping("/get/{code}")
     OrderDTO getOrderByCode(@PathVariable String code);
 
-    @GetMapping("/order/get")
+    @GetMapping("/get")
     List<OrderDTO> getOrders();
 }
