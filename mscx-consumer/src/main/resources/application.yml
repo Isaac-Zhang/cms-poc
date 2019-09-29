@@ -1,0 +1,36 @@
+server:
+  port: 8088
+  servlet:
+    context-path: /consumer
+spring:
+  application:
+    name: mscx-consumer
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8888/eureka/
+  instance:
+    prefer-ip-address: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      defaultSynchronousMethodHandler:
+        loggerLevel:
+          com.geekplus.cms.consumer.feign.IOrderFeignClient: debug
+  httpclient:
+    # 为feign启用 apache httpclient 做请求，而不使用默认的urlconection
+    #enabled: true
+    # feign 最大连接数
+    max-connections: 200
+    # feign 单个路径请求的最大连接数
+    max-connections-per-route: 50
+  okhttp:
+    enabled: true

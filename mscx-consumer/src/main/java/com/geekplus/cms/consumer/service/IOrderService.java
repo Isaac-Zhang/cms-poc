@@ -1,15 +1,19 @@
-package com.geekplus.cms.producer.service;
+package com.geekplus.cms.consumer.service;
 
-import com.geekplus.cms.producer.dto.OrderDTO;
+import com.geekplus.cms.consumer.dto.OrderDTO;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /***
- * todo
+ * 订单服务
  *
  * @Company GeekPlus
  * @Project poc
  * @Author <a href="mailto:zhangpan@geekplus.com.cn">Isaac.Zhang | 若初</a>
- * @Date 2019/9/27
+ * @Date 2019/9/29
  */
 public interface IOrderService {
 
