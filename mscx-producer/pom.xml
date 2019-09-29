@@ -12,7 +12,7 @@
   <artifactId>mscx-producer</artifactId>
   <packaging>jar</packaging>
 
-  <name>producer micro-service</name>
+  <name>mscx-producer</name>
   <description>
     模拟订单生成服务
   </description>
