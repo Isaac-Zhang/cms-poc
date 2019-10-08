@@ -37,7 +37,7 @@ public class OrderController {
     private final IOrderService orderService;
 
     @PostMapping("/")
-    @ApiOperation("创建订单")
+    @ApiOperation(value = "创建订单",notes = "根据OrderDTO对象创建订单")
     private OrderDTO createOrder(@Valid @RequestBody OrderDTO orderDTO) throws Exception {
         return orderService.createOrder(orderDTO);
     }
