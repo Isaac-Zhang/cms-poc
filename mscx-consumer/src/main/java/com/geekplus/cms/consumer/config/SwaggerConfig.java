@@ -1,5 +1,6 @@
 package com.geekplus.cms.consumer.config;
 
+import com.google.common.base.Predicates;
 import java.util.Collections;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,8 +27,12 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
             .select()
-            .apis(RequestHandlerSelectors.any())
-            .paths(PathSelectors.any())
+            //通过指定包名的方式，让 Swagger 只去某些包下面扫描。
+            .apis(RequestHandlerSelectors.basePackage("com.geekplus.cms.consumer.controller"))
+            //.apis(RequestHandlerSelectors.any())
+            //通过筛选 API 的 url 来进行过滤。
+            .paths(Predicates.or(PathSelectors.ant("/order/*"),PathSelectors.ant("/user/*")))
+            //.paths(PathSelectors.any())
             .build()
             .apiInfo(apiInfo());
     }
