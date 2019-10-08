@@ -31,19 +31,19 @@ import springfox.documentation.annotations.ApiIgnore;
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping("/order")
-@Api(tags = "订单相关接口", description = "提供订单相关的 Rest API")
+@Api(tags = {"订单管理", "会员管理"}, description = "提供订单相关的 Rest API")
 public class OrderController {
 
     private final IOrderService orderService;
 
     @PostMapping("/")
-    @ApiOperation(value = "创建订单",notes = "根据OrderDTO对象创建订单")
+    @ApiOperation(value = "创建订单", notes = "根据OrderDTO对象创建订单")
     private OrderDTO createOrder(@Valid @RequestBody OrderDTO orderDTO) throws Exception {
         return orderService.createOrder(orderDTO);
     }
 
     @GetMapping("/{code}")
-    @ApiOperation("根据code查询订单")
+    @ApiOperation(value = "根据code查询订单",tags = "会员管理")
     public OrderDTO findByCode(@PathVariable String code) {
         return orderService.findByOrderCode(code);
     }

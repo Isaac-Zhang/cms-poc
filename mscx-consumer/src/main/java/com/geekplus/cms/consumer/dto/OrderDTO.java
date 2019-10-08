@@ -28,19 +28,19 @@ import lombok.NoArgsConstructor;
 public class OrderDTO {
 
     @NotNull
-    @ApiModelProperty("订单编码")
+    @ApiModelProperty(value = "订单编码", position = 1)
 //    @Size(min = 2, max = 5)
 //    @Max(100)
 //    @Min(10)
 //    @Email
     private String orderCode;
 
-    @ApiModelProperty("订单id")
+    @ApiModelProperty(value = "订单id", position = 2)
     private Long orderId;
 
-    @ApiModelProperty("订单创建时间")
+    @ApiModelProperty(value = "订单创建时间", position = 3)
     private Long createTime;
 
-    @ApiModelProperty("订单修改时间")
+    @ApiModelProperty(value = "订单修改时间", position = 4)
     private Long updateTime;
 }
