@@ -1,11 +1,16 @@
 package com.geekplus.cms.consumer.config;
 
 import com.google.common.base.Predicates;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.ResponseMessageBuilder;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
@@ -23,6 +28,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -31,17 +37,32 @@ public class SwaggerConfig {
             .apis(RequestHandlerSelectors.basePackage("com.geekplus.cms.consumer.controller"))
             //.apis(RequestHandlerSelectors.any())
             //通过筛选 API 的 url 来进行过滤。
-            .paths(Predicates.or(PathSelectors.ant("/order/*"),PathSelectors.ant("/user/*")))
+            .paths(Predicates.or(PathSelectors.ant("/order/*"), PathSelectors.ant("/user/*")))
             //.paths(PathSelectors.any())
             .build()
-            .apiInfo(apiInfo());
+            .apiInfo(apiInfo())
+            .useDefaultResponseMessages(false)
+            .globalResponseMessage(
+                RequestMethod.GET,
+                Arrays.asList(
+                    new ResponseMessageBuilder()
+                        .code(500)
+                        .message("服务器发生异常")
+                        .responseModel(new ModelRef("Error"))
+                        .build(),
+                    new ResponseMessageBuilder()
+                        .code(403)
+                        .message("资源不可用")
+                        .build()
+                )
+            );
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-            "POC 集成 Swagger 实例",
-            "网站：https://geekplus.com.cn，欢迎大家访问。",
-            "API V1.0",
+            "CMS Open API Interfaces.",
+            "https://geekplus.com.cn，欢迎大家访问。",
+            "OPEN V1.0",
             "Terms of service",
             new Contact("dev", "https://geekplus.com.cn", "zhangpan@geekplus.com.cn"),
             "Apache", "http://www.apache.org/", Collections.emptyList());
