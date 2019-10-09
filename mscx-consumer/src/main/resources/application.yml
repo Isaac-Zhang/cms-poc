@@ -34,3 +34,14 @@ feign:
     max-connections-per-route: 50
   okhttp:
     enabled: true
+
+#更改producer service 的负载均衡请求规则
+#mscx-producer:
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+ribbon:
+  #开启启动加载模式
+  eager-load:
+    enabled: true
+    # 配置需要饥饿加载的服务列表
+    clients: mscx-producer,service1,service2,....
